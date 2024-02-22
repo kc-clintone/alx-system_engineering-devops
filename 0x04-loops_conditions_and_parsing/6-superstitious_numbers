@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Bash script to display numbers 1-20 and messages based on loop iteration
+
+counter=1
+while [ $counter -le 20 ]; do
+    if [ $counter -eq 4 ]; then
+        echo "bad luck from China"
+    elif [ $counter -eq 9 ]; then
+        echo "bad luck from Japan"
+    elif [ $counter -eq 17 ]; then
+        echo "bad luck from Italy"
+    else
+        echo $counter
+    fi
+
+   counter=$((counter + 1))
+done
