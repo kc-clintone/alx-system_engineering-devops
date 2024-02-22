@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 # Bash script to display messages based on loop iteration
 
 counter=1
