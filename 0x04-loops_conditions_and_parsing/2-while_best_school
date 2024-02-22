@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #----- a Bash script that displays Best School 10 times-----
 
-counter=10
+counter=1
 while [ $counter -le 10 ]; do
     echo "Best School"
     ((counter++))
