@@ -2,7 +2,8 @@
 # A script that infinitely prints "To infinity and beyond" with a 2 seconds
 # time interval
 
-while [ 1 ]; do
+while true
+do
     echo "To infinity and beyond"
     sleep 2
 done
