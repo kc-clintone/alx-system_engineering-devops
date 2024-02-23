@@ -3,5 +3,5 @@
 # and displays this data
 
 _file="apache-access.log"
-awk -F' ' '{ print $1, $9}' $myfile | sort | uniq -c|sort -nr
+awk -F' ' '{ print $1, $9}' $_file | sort | uniq -c|sort -nr
 
