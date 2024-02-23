@@ -4,5 +4,5 @@
 mylist=$(ls)
 
 for index in $mylist; do
-  echo "$i" | cut -d '-' -f2
+  echo "$index" | cut -d '-' -f2
 done
