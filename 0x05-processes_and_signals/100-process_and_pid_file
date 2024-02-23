@@ -1,18 +1,14 @@
 #!/usr/bin/env bash
 #This is a tricky program, see it for yourself
 
-# First, let's create the PID file
-echo $$ > /var/run/myscript.pid
+echo $$ >> /var/run/myscript.pid
 
-# And then trap some signals
-trap 'echo "I hate the kill command"; rm -rf /var/run/myscript.pid; exit' SIGTERM
-trap 'echo "Y U no love me?!"' SIGINT
-trap 'rm /var/run/myscript.pid; exit' SIGQUIT SIGTERM
+trap "echo 'I hate the kill command'; rm -rf /var/run/myscript.pid; exit" SIGTERM
+trap "echo 'Y U no love me?!'" SIGINT
+trap "rm -rf /var/run/holbertonscript.pid; exit" SIGQUIT
 
-# Lastly, we display the folloeing message indefinitely
 while true
 do
-    echo "To infinity and beyond"
+    echo 'To infinity and beyond'
     sleep 2
 done
-
