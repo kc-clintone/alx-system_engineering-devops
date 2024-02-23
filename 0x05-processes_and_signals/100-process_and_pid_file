@@ -5,7 +5,7 @@
 echo $$ > /var/run/myscript.pid
 
 # And then trap some signals
-trap 'echo "I hate the kill command"' SIGTERM
+trap 'echo "I hate the kill command"; rm -rf /var/run/myscript.pid; exit' SIGTERM
 trap 'echo "Y U no love me?!"' SIGINT
 trap 'rm /var/run/myscript.pid; exit' SIGQUIT SIGTERM
 
