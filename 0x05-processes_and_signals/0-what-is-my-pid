@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-# A script that prints all the current running scripts
+# A script that prints your pid
 
 echo $$
