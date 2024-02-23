@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 # Bash script to display the content of the current directory
 
-for file in *; do
-    if [[ $file != .* && $file == *-* ]]; then
-        f_name=$(echo "$file" | cut -d'-' -f2-)
-        echo "$f_name"
-    fi
+mylist=$(ls)
+
+for index in $mylist; do
+  echo "$i" | cut -d '-' -f2
 done
