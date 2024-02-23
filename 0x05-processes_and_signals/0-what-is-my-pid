@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# A script that prints all the current running scripts
+
+echo $$
