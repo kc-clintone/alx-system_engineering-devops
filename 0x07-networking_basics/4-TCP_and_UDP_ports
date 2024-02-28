@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#Displays a bunch of processes/services and the ports they're running on
+
+netstat -lp
