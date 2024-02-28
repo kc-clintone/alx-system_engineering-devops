@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# The command in this script opens a localhost connection
+# listening on port 98
+
+nc -l localhost 98
