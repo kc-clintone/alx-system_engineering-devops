@@ -15,7 +15,7 @@ fi
 if [ -z "$key" ]; then
     cmd="scp -o StrictHostKeyChecking=no $file_path $uname@$ip_addr:~/"
 else
-    cmd="scp -o StrictHostKeyChecking=no -i $ssh_key $file_path $uname@$ip_addr:~/"
+    cmd="scp -o StrictHostKeyChecking=no -i $key $file_path $uname@$ip_addr:~/"
 fi
 
 # Then execute the SCP command
