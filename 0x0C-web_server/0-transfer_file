@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Assign parameters to variables
+file_path="$1"
+ip_addr="$2"
+uname="$3"
+key="$4"
+
+# Check if the number of parameters is less than 3
+if [ "$#" -lt 3 ]; then
+    echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+    exit 1
+fi
+
+# Check if the SSH key path is provided
+if [ -z "$key" ]; then
+    cmd="scp -o StrictHostKeyChecking=no $file_path $uname@$ip_addr:~/"
+else
+    cmd="scp -o StrictHostKeyChecking=no -i $ssh_key $file_path $uname@$ip_addr:~/"
+fi
+
+# Then execute the SCP command
+$cmd
+
