@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
+# Fixed my server with this one-liner
 sudo service apache2 start
