@@ -3,7 +3,7 @@
 apt-get update
 apt-get install -y nginx
 
-# Creating a custom 404 error page with the string "Ceci n'est pas une page"
+# Creating a custom 404 error page with the string: Ceci n'est pas une page
 echo "Ceci n'est pas une page" > /var/www/html/404.html
 
 # Configuring Nginx to use the custom 404 error page
