@@ -3,13 +3,30 @@
 apt-get update
 apt-get install -y nginx
 
-# Creating a custom 404 error page with the string: Ceci n'est pas une page
+# Creating a custom 404 HTML file
 echo "Ceci n'est pas une page" > /var/www/html/404.html
 
-# Configuring Nginx to use the custom 404 error page
-echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
-sub="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
-sudo sed -i "s/listen 80 default_server;/$sub/" /etc/nginx/sites-enabled/default
+# Configuring Nginx to use the custom 404 page
+cat <<EOF > /etc/nginx/sites-available/default
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
-# Lastly, restart Nginx
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name _;
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+    error_page 404 /404.html;
+    location = /404.html {
+        internal;
+    }
+}
+EOF
+
+# Restarting nginx
 service nginx restart
+
