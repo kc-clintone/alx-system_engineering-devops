@@ -1,16 +1,27 @@
-# Automate creating a custom HTTP header with puppet
+# Automate custom header creation with puppet
 
-exec {'update package list':
-  command => '/usr/bin/sudo apt-get update',
+# Install Nginx package
+package { 'nginx':
+  ensure => installed,
 }
--> package {'nginx':
-  ensure => 'present',
-}
--> file_line {'http_header':
-  path  => '/etc/nginx/nginx.conf',
-  match => 'http {',
-  line  => "http {\n\tadd_header X-Served-By \"${hostname}\";",
-}
--> exec {'run':
-  command => '/usr/sbin/service nginx restart',
-}
+
+# Define custom HTTP header value as the hostname of the server
+$server_hostname = $facts['hostname']
+
+# Configure Nginx to add custom HTTP header response
+file { '/etc/nginx/sites-available/default':
+  ensure  => file,
+  content => "
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name _;
+
+    location / {
+        # Add custom HTTP header response
+        add_header X-Served-By
+
