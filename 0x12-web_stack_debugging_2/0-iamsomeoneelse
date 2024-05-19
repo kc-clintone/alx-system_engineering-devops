@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Checking which user is currently running
+
+# Ensure the script accepts one argument
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <username>"
+    exit 1
+fi
+
+# Store the username passed as an argument
+USERNAME=$1
+
+# Running whoami command as the specified user
+sudo -u $USERNAME whoami
+
+# Checking foe success
+if [ $? -ne 0 ]; then
+    echo "Failed to run whoami for user: $USERNAME"
+    exit 1
+fi
+
