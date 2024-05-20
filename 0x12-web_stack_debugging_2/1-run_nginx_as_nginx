@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# Running root as nginx, sort of
+
+# Ensuring the script is being run as root to have the necessary permissions
+if [ "$(whoami)" != "root" ]; then
+    echo "This script must be run as root"
+    exit 1
+fi
+
+# Creating the nginx user if it does not exist
+if ! id -u nginx &> /dev/null; then
+    echo "Creating new user >>> nginx..."
+    useradd -r -s /bin/false nginx
+fi
+
+# Modifying the Nginx config to run as the nginx user and listen on port 8080
+NGINX_CONFIG="/etc/nginx/nginx.conf"
+
+echo "Updating Nginx configuration..."
+
+# Updating the user directive to run Nginx as nginx user
+sed -i 's/^user .*/user nginx;/' $NGINX_CONFIG
+
+# Updating the server block to listen on port 8080
+sed -i 's/listen [0-9]\+;/listen 8080;/' /etc/nginx/sites-available/default
+
+# Set appropriate permissions for the nginx user
+chown -R nginx:nginx /var/lib/nginx /var/log/nginx
+
+# Start Nginx service
+service nginx restart
+
+# Verify that Nginx is running as the nginx user and listening on port 8080
+if ps aux | grep '[n]ginx: master process' | grep -q nginx; then
+    echo "Nginx is running as the nginx user."
+else
+    echo "Nginx is not running as the nginx user. Please check the configuration."
+    exit 1
+fi
+
+if netstat -tuln | grep ':8080' &> /dev/null; then
+    echo "Nginx is listening on port 8080."
+else
+    echo "Nginx is not listening on port 8080. Please check the configuration."
+    exit 1
+fi
+
+echo "Nginx configuration completed successfully."
+
