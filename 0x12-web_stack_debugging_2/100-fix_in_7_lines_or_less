@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 # fix in 7 lines or less
-
 sed -i 's/^user .*/user nginx;/; s/listen [0-9]\+;/listen 8080;/' /etc/nginx/nginx.conf /etc/nginx/sites-available/default
 useradd -r -s /bin/false nginx
 chown -R nginx:nginx /var/lib/nginx /var/log/nginx
 service nginx restart
 pgrep -u nginx -f 'nginx: master process'
-
