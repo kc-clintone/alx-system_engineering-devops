@@ -31,7 +31,7 @@ chown -R nginx:nginx /var/lib/nginx /var/log/nginx
 service nginx restart
 
 # Verify that Nginx is running as the nginx user and listening on port 8080
-if ps aux | grep '[n]ginx: master process' | grep -q nginx; then
+if pgrep -u nginx -f 'nginx: master process' > /dev/null; then
     echo "Nginx is running as the nginx user."
 else
     echo "Nginx is not running as the nginx user. Please check the configuration."
