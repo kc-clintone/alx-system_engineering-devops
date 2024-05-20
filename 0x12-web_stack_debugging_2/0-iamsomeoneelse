@@ -11,9 +11,9 @@ fi
 USERNAME=$1
 
 # Running whoami command as the specified user
-sudo -u $USERNAME whoami
+sudo -u "$USERNAME" whoami
 
-# Checking foe success
+# Checking for success
 if [ $? -ne 0 ]; then
     echo "Failed to run whoami for user: $USERNAME"
     exit 1
