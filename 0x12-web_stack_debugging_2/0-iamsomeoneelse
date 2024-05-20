@@ -14,7 +14,7 @@ USERNAME=$1
 sudo -u "$USERNAME" whoami
 
 # Checking for success
-if [ $USERNAME -ne 0 ]; then
+if [ "$USERNAME" -ne 0 ]; then
     echo "Failed to run whoami for user: $USERNAME"
     exit 1
 fi
