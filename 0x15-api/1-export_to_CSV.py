@@ -16,9 +16,9 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         if re.fullmatch(r'\d+', sys.argv[1]):
             usr_id = int(sys.argv[1])
-            all_users = requests.get('{}/users/{}'.format(ENDPOINT, usr_id)).json()
+            usrs = requests.get('{}/users/{}'.format(ENDPOINT, usr_id)).json()
             tds = requests.get('{}/todos'.format(ENDPOINT)).json()
-            usr_name = all_users.get('username')
+            usr_name = usrs.get('username')
             todos = list(filter(lambda x: x.get('userId') == usr_id, tds))
             with open('{}.csv'.format(usr_id), 'w') as file:
                 for t in todos:
