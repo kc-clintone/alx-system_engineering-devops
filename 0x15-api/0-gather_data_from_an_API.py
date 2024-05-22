@@ -15,18 +15,18 @@ ENDPOINT = "https://jsonplaceholder.typicode.com"
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         if re.fullmatch(r'\d+', sys.argv[1]):
-            id = int(sys.argv[1])
-            user_res = requests.get('{}/users/{}'.format(ENDPOINT, id)).json()
-            todos_res = requests.get('{}/todos'.format(ENDPOINT)).json()
-            user_name = user_res.get('name')
-            todos = list(filter(lambda x: x.get('userId') == id, todos_res))
-            todos_done = list(filter(lambda x: x.get('completed'), todos))
+            usr_id = int(sys.argv[1])
+            users = requests.get('{}/users/{}'.format(ENDPOINT, usr_id)).json()
+            tds = requests.get('{}/todos'.format(ENDPOINT)).json()
+            usr_name = users.get('name')
+            todos = list(filter(lambda x: x.get('userId') == id, tds))
+            resolved = list(filter(lambda x: x.get('completed'), todos))
             print(
                 'Employee {} is done with tasks({}/{}):'.format(
-                    user_name,
-                    len(todos_done),
+                    usr_name,
+                    len(resolved),
                     len(todos)
                 )
             )
-            for todo_done in todos_done:
-                print('\t {}'.format(todo_done.get('title')))
+            for k in resolved:
+                print('\t {}'.format(k.get('title')))
