@@ -18,9 +18,9 @@ if __name__ == '__main__':
         if re.fullmatch(r'\d+', sys.argv[1]):
             usr_id = int(sys.argv[1])
             users = requests.get('{}/users/{}'.format(ENDPOINT, usr_id)).json()
-            todos_obj = requests.get('{}/todos'.format(ENDPOINT)).json()
+            tds = requests.get('{}/todos'.format(ENDPOINT)).json()
             usr_name = users.get('username')
-            todos = list(filter(lambda x: x.get('userId') == usr_id, todos_obj))
+            todos = list(filter(lambda x: x.get('userId') == usr_id, tds))
             with open("{}.json".format(usr_id), 'w') as json_file:
                 results = list(map(
                     lambda x: {
