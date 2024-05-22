@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/python3
 """
 returns info about employee TODO progress
 Implemented using recursion
