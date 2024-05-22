@@ -3,9 +3,9 @@
 gathers data from API and exports it to JSON file
 Implemented using recursion
 """
+import json
 import re
 import requests
-import json
 import sys
 
 
