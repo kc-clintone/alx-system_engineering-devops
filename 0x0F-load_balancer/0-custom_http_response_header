@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# adding a custom header 
 
 # Update the package repository
 sudo apt update                                                 sudo apt install -y nginx
