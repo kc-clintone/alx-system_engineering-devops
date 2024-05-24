@@ -1,45 +1,28 @@
 #!/usr/bin/env bash
-# adding a custom header 
+# Customizing the http response header
 
-# Update the package repository
-sudo apt update                                                 sudo apt install -y nginx
+# Update packages
+sudo apt-get update
+sudo apt-get install -y nginx
 
-# Creating an index.html page
+# Createa custom index.html page
 echo "Hello World!" | sudo tee /var/www/html/index.html
 
 # Performing a "moved permanently redirection" (301)
 new_string="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/besthor permanent;"
 sudo sed -i "s/server_name _;/$new_string/" /etc/nginx/sites-enabled/default
 
-# Creating a 404 Custom error page
+# Create a 404 Custom error page
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
 new_string="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
 
-# Create a custom Nginx configuration file to add the custom header
-echo 'add_header X-Served-By $hostname;' | sudo tee /etc/nginx/conf.d/custom_header.conf
+sudo sed -i "s/listen 80 default_server;/$new_string/" /etc/nginx/sites-enabled/default
 
-# Remove default configuration files if they exist
-sudo rm /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
+# Create an HTTP response header
+sudo sed -i "/server_name _/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default
 
-# Configure Nginx settings
-sudo bash -c 'cat > /etc/nginx/sites-available/default' <<EOF
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
+# Test configurations for syntax errors
+sudo nginx -t
 
-    root /var/www/html;
-    index index.html index.htm;
-
-    server_name _;
-
-    location / {
-        try_files \$uri \$uri/ =404;
-    }
-}
-EOF
-
-# Enable the custom configuration
-sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
-
-# Ensure Nginx is running
-sudo systemctl restart nginx
+# Restart nginx
+sudo service nginx restart
