@@ -1,32 +1,45 @@
-#!/usr/bin/env bash
-# Install and configure HAproxy on your lb-01 server.
-# Requirements:
-#      Configure HAproxy so that it send traffic to web-01 and web-02
-#      Distribute requests using a roundrobin algorithm
-#      Make sure that HAproxy can be managed via an init script
-#      Make sure that your servers are configured with the right hostnames: [STUDENT_ID]-web-01 and [STUDENT_ID]-web-02. If not, follow this tutorial.
+#!/bin/bash
 
-# Update package lists and install HAproxy
+# Update the package repository
 sudo apt update
+
+# Install HAProxy
 sudo apt install -y haproxy
 
-# Configure servers
-server_config=\
+# Configure HAProxy
+sudo bash -c 'cat > /etc/haproxy/haproxy.cfg' <<EOF
+global
+    log /dev/log    local0
+    log /dev/log    local1 notice
+    chroot /var/lib/haproxy
+    stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
+    stats timeout 30s
+    user haproxy
+    group haproxy
+    daemon
 
-"frontend xtremeart_frontend
+defaults
+    log     global
+    mode    http
+    option  httplog
+    option  dontlognull
+    timeout connect 5000
+    timeout client  50000
+    timeout server  50000
+
+frontend xtremeart_frontend
     bind *:80
-    mode http
+    stats uri /haproxy?stats
     default_backend xtremeart_backend
 
-backend xtremart_backend
+backend xtremeart_backend
     balance roundrobin
-    server 478643-web-01 34.232.52.217 check
-    server 478643-web-02 54.221.179.15 check
-"
-echo "$server_config" | sudo tee -a /etc/haproxy/haproxy.cfg
+    server 478643-web-01 34.224.2.251:80 check
+    server 478643-web-02 52.91.121.119:80 check
+EOF
 
-# Restart haproxy through an init file
-echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+# Enable HAProxy init script
+sudo systemctl enable haproxy
 
-# Restart service
-sudo service haproxy restart
+# Restart HAProxy
+sudo systemctl restart haproxy
