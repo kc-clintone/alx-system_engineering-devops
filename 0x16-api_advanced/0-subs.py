@@ -15,5 +15,5 @@ def number_of_subscribers(subreddit):
     req = requests.get('http://www.reddit.com/r/{}/about.json'.format(sub),
                      headers={'User-Agent': '0x16-api_advanced:project:\
 v1.0.0 (by  /api/v1/subreddit/post_requirementssubmit)'}).json()
-    subs ribers = req.get("data", {}).get("subscribers", 0)
+    subscribers = req.get("data", {}).get("subscribers", 0)
     return subscribers
