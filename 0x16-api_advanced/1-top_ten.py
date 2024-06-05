@@ -8,11 +8,11 @@ import requests
 
 def top_ten(subreddit):
     """
-    Returns top ten posts
+    Returns top ten hot posts
     """
     url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
     headers = {
-        'User-Agent': 'python:subreddit.hot.posts:v1.0 (by /u/yourusername)'
+        'User-Agent': 'python:subreddit.hot.posts:v1.0 (by /u/Particular-Cattle673)'
     }
     try:
         response = requests.get(url, headers=headers, allow_redirects=False)
