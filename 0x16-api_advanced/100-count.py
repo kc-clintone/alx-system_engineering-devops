@@ -15,7 +15,7 @@ def count_words(subreddit, word_list, after=None, counter=None):
     if counter is None:
         counter = Counter()
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    headers = {'User-Agent': 'python:subreddit.keyword.counter: 
+    headers = {'User-Agent': 'python:subreddit.keyword.counter: \
                v1.0 (by /u/Particular-Cattle673)'}
     params = {'limit': 100}
     if after:
