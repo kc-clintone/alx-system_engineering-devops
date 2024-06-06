@@ -5,7 +5,7 @@
 - **Impact:** The gremlins invaded our user authentication service, resulting in a chaotic dance of failed login attempts (up 50%) and a ghostly disappearance of user engagement (down 30%).
 - **Root Cause:** Turns out, our load balancer decided to moonlight as a bottleneck, causing traffic mayhem and authentication headaches.
 
-![Gremlins](https://i.imgur.com/v9PSOYz.jpg)
+![Gremlins](https://remote-tools-images.s3.amazonaws.com/programmer-memes/53.jpg)
 
 ## Timeline:
 - **June 3, 2024, 10:30 AM (UTC):** The gremlins were spotted wreaking havoc through our monitoring alerts, triggering a state of emergency.
@@ -32,5 +32,3 @@
   5. Update our incident response spellbook with specific incantations for load balancer misconfigurations.
 
 In conclusion, the outage was a result of mischievous gremlins infiltrating our load balancer, causing chaos in our authentication kingdom. Through vigilant detection, swift escalation, and mystical resolution, we banished the misconfigurations and restored harmony to our servers. Moving forward, we'll continue to fortify our defenses and cast protective spells to prevent similar incidents in the future.
-
-![Magical Solution](https://i.imgur.com/GQjeZ9v.jpg)
