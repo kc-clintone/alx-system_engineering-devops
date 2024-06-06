@@ -3,9 +3,9 @@
 Count
 """
 
-import requests
 from collections import Counter
 import re
+import requests
 
 
 def count_words(subreddit, word_list, after=None, counter=None):
@@ -32,7 +32,8 @@ def count_words(subreddit, word_list, after=None, counter=None):
             title = post['data']['title']
             words_in_title = re.findall(r'\b\w+\b', title.lower())
             for word in word_list:
-                counter[word.lower()] += words_in_title.count(word.lower())
+                counter[word.lower
+                        ()] += words_in_title.count(word.lower())
 
         after = data['data'].get('after')
         if after:
